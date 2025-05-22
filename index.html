@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เงื่อนไขการเทรดของ | Fam 1.0</title>
+    <link rel="icon" type="image/x-icon" href="img/LogoFreedomTown.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: #f3e6ff;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(128, 0, 180, 0.15);
+            padding: 32px 24px 24px 24px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .header img {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 16px;
+            border: 3px solid #a259e6;
+            background: #f3e6ff;
+        }
+        .header-title {
+            font-size: 1.7rem;
+            color: #fff;
+            background: #6c3483;
+            box-shadow: 0 2px 16px rgba(128,0,180,0.18);
+            border-radius: 14px;
+            padding: 16px 10px 14px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: 1.2px;
+            font-weight: 700;
+            flex-wrap: wrap;
+        }
+        .header-title .icon {
+            width: 36px;
+            height: 36px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .section {
+            margin-bottom: 28px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #a259e6;
+            margin-bottom: 8px;
+        }
+        .section-desc {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 0;
+        }
+        ul {
+            margin: 0 0 0 18px;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .navbar {
+            width: 100%;
+            background: #6c3483;
+            box-shadow: 0 2px 12px rgba(128,0,180,0.08);
+            border-radius: 14px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 12px 0;
+        }
+        .navbar .burger {
+            display: none;
+        }
+        .navbar a {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.08rem;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .navbar a.active, .navbar a:hover {
+            background: #a259e6;
+            color: #fff;
+        }
+        .section-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        .section-card {
+            background: linear-gradient(135deg, #f3e6ff 70%, #e1c6f7 100%);
+            border-radius: 18px;
+            box-shadow: 0 4px 18px rgba(128,0,180,0.10);
+            padding: 28px 24px 22px 24px;
+            min-width: 0;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow 0.18s, transform 0.18s;
+        }
+        .section-card:hover {
+            box-shadow: 0 8px 32px #a259e633;
+            transform: translateY(-4px) scale(1.02);
+        }
+        .section-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #a259e6;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .section-desc {
+            font-size: 1.04rem;
+            color: #222;
+            line-height: 1.7;
+        }
+        .section-desc span[style*="color:#00bfff"] {
+            color: #a259e6 !important;
+        }
+        .section-card-center {
+            grid-column: 1 / -1;
+            max-width: 400px;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+        @media (max-width: 900px) {
+            .section-list { grid-template-columns: 1fr; gap: 18px; }
+            .section-card { padding: 18px 10px; }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 8px 12px 8px;
+                margin: 0;
+                max-width: 100vw;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .banner {
+                margin-bottom: 16px !important;
+                border-radius: 0 0 14px 14px !important;
+            }
+            .header {
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 12px;
+                padding: 0 8px;
+            }
+            .header img {
+                width: 54px;
+                height: 54px;
+            }
+            .header-title {
+                font-size: 2.08rem !important;
+                padding: 8px 4px !important;
+                gap: 6px;
+                background: #6c3483 !important;
+            }
+            .header-title .icon {
+                width: 22px;
+                height: 22px;
+            }
+            .navbar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                background: transparent;
+                border-radius: 0;
+                box-shadow: none;
+                margin-bottom: 0;
+                padding: 0;
+                min-height: 0;
+                position: static;
+                top: auto;
+                z-index: 1;
+            }
+            .navbar .burger {
+                display: block;
+                position: fixed;
+                right: 14px;
+                bottom: 14px;
+                left: auto;
+                top: auto;
+                margin: 0;
+                align-self: auto;
+                z-index: 2000;
+                background: #a259e6;
+                border: none;
+                color: #fff;
+                font-size: 1.3rem;
+                padding: 7px 12px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(128,0,180,0.13);
+                transition: background 0.18s, box-shadow 0.18s;
+                cursor: pointer;
+                opacity: 0.97;
+            }
+            .navbar .burger:active,
+            .navbar .burger:focus {
+                background: #6c3483;
+                color: #fff;
+                outline: none;
+                box-shadow: 0 2px 8px #a259e699;
+            }
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                width: 100vw;
+                max-width: 100vw;
+                background: #6c3483;
+                border-radius: 0 0 12px 12px;
+                box-shadow: 0 2px 8px rgba(128,0,180,0.08);
+                margin-top: 0;
+                padding-bottom: 8px;
+                position: fixed;
+                left: 0;
+                top: 0;
+                animation: fadeInMenu 0.22s;
+                z-index: 2100;
+            }
+            .navbar-links.show {
+                display: flex;
+            }
+            .navbar a {
+                width: 100vw;
+                max-width: 100vw;
+                text-align: left;
+                padding: 13px 18px;
+                border-radius: 0;
+                font-size: 1.01rem;
+                border-bottom: 1px solid #a259e622;
+                transition: background 0.18s, color 0.18s;
+                background: transparent;
+                color: #fff;
+            }
+            .navbar a.active, .navbar a:hover {
+                background: #a259e6;
+                color: #fff;
+            }
+            .navbar a:last-child {
+                border-bottom: none;
+            }
+            .section-list {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                margin-bottom: 10px;
+                padding: 0 2px;
+            }
+            .section-card {
+                padding: 12px 10px;
+                border-radius: 10px;
+                box-shadow: 0 1px 4px #a259e611;
+            }
+            .section-title {
+                font-size: 0.98rem;
+                margin-bottom: 4px;
+            }
+            .section-desc {
+                font-size: 0.93rem;
+                line-height: 1.5;
+            }
+        }
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <button class="burger" aria-label="เมนูนำทาง">☰</button>
+            <div class="navbar-links">
+                <a href="index.html" class="active">เงื่อนไขการเทรดของ</a>
+                <a href="trade-places.html">สถานที่การเทรดของ</a>
+                <a href="coin-details.html">รายละเอียดเหรียญ</a>
+                <a href="how-to-trade.html">วิธีการเทรดของ</a>
+            </div>
+        </nav>
+        <div class="banner" style="width:100%;margin-bottom:32px;">
+            <img src="img/1.png" alt="Fam 1.0 Banner" style="width:100%;max-height:340px;object-fit:cover;border-radius:18px 18px 0 0;box-shadow:0 2px 16px rgba(0,80,180,0.18);border-bottom:4px solid #a259e6;">
+        </div>
+        <div class="header" style="margin-top:-18px; justify-content:center; text-align:center; margin-bottom:30px;">
+            <div class="header-title" style="font-size:2.5rem; color:#fff; background:#6c3483; box-shadow:0 2px 16px rgba(128,0,180,0.18); border-radius:12px; padding:18px 12px; display:inline-block; letter-spacing:1.5px;">
+                <span style="font-size:2.2rem; vertical-align:middle;"></span>
+                <span style="vertical-align:middle;">เงื่อนไขการเทรดของ <span style="color:#a259e6; font-weight:900;">FAM 1.0</span></span>
+                <span style="font-size:2.2rem; vertical-align:middle;"></span>
+            </div>
+        </div>
+        <div class="section-list">
+            <div class="section-card">
+                <div class="section-title">ไอเทมทั่วไป</div>
+                <div class="section-desc">
+                    - ไอเทมประเภททั่วไปที่ไม่ใช่อาวุธหรือแฟชั่น จะถูกแปลงมูลค่าเป็นเงินสดและนำมาคำนวณเพื่อแลกเป็น "Ticket Money" โดยกำหนดว่า ทุก ๆ 1,000,000 หน่วยเงินที่แปลงได้ จะสามารถแลกเป็น 1 Ticket Money ทั้งนี้ เศษเงินที่ไม่ครบล้านจะไม่ถูกนำมาคิดรวม
+                </div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">Weapon (จากเซิร์ฟเวอร์ Fam 1.0)</div>
+                <div class="section-desc">
+                    - จะได้รับการปรับเปลี่ยนระดับให้เทียบเท่ากับระบบ Tier อาวุธที่ใช้งานในเซิร์ฟเวอร์ Fam Unity เพื่อให้เกิดความเหมาะสมและสมดุลในการใช้งานร่วมกันภายใต้ระบบใหม่<br>
+                    <span style="color:#d32f2f;font-weight:bold;">* หากผู้เล่นมีข้อมูลทั้ง Server Fam 1.0 และ Fam Freedom สามารถเลือกการเทรดอาวุธได้เพียงเชิร์ฟเวอร์เดียวเท่านั้น</span>
+                </div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">แฟชั่น</div>
+                <div class="section-desc">
+                    - แฟชั่นทุกประเภท จะถูกแปลงเป็น <span style="color:#a259e6;font-weight:bold;">“เหรียญแฟชั่น”</span> ซึ่งสามารถนำไปแลกเปลี่ยนเป็นแฟชั่นอื่น ๆ ภายใน Fam Unity ได้ในอนาคต
+                </div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">รถจากกิจกรรมประมูล</div>
+                <div class="section-desc">
+                    - รถที่ได้รับจากกิจกรรมประมูลจะถูกแปลงเป็น <span style="color:#a259e6;font-weight:bold;">“เหรียญรถประมูล”</span> โดยการแปลงจะอ้างอิงจากผู้ถือกุญแจคนล่าสุดของรถนั้น
+                </div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">รถจากระบบบริจาค (Top Donate)</div>
+                <div class="section-desc">
+                    - รถที่ได้รับจากการบริจาคในระดับ Top Donate จะถูกแปลงเป็น <span style="color:#a259e6;font-weight:bold;">“เหรียญรถ Top Donate”</span> ซึ่งสามารถนำไปใช้ในกิจกรรมหรือร้านค้าเฉพาะภายใน Fam Unity ได้
+                </div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">รถประกอบ</div>
+                <div class="section-desc">
+                    - รถที่ผู้เล่นประกอบขึ้นเองในเซิร์ฟเวอร์เดิมจะถูกแปลงเป็น <span style="color:#a259e6;font-weight:bold;">“เหรียญรถประกอบ”</span>
+                </div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">รถกาชา</div>
+                <div class="section-desc">
+                    - รถที่ได้รับจากระบบสุ่มกาชาจะถูกแปลงเป็น <span style="color:#a259e6;font-weight:bold;">“เหรียญรถกาชา”</span>
+                </div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">แฟชั่นจากระบบบริจาค (Top Donate)</div>
+                <div class="section-desc">
+                    - แฟชั่นที่ได้รับจากการบริจาคพิเศษจะถูกแปลงเป็น <span style="color:#a259e6;font-weight:bold;">“เหรียญแฟชั่น Top Donate”</span>
+                </div>
+            </div>
+            <div class="section-card section-card-center">
+                <div class="section-title">สกินอาวุธ</div>
+                <div class="section-desc">
+                    - สกินตกแต่งอาวุธทั้งหมดจะถูกแปลงเป็น <span style="color:#a259e6;font-weight:bold;">“เหรียญสกินอาวุธ”</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var burger = document.querySelector('.navbar .burger');
+            var links = document.querySelector('.navbar-links');
+            function handleResize() {
+                if(window.innerWidth > 600) {
+                    links.classList.remove('show');
+                    // .navbar always visible, no need to hide
+                } else {
+                    links.classList.remove('show');
+                    // .navbar always visible, no need to hide
+                }
+            }
+            if (burger && links) {
+                burger.addEventListener('click', function () {
+                    links.classList.toggle('show');
+                });
+                window.addEventListener('resize', handleResize);
+                handleResize();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดเหรียญที่ได้รับ | Fam 1.0<</title>
+        <link rel="icon" type="image/x-icon" href="img/LogoFreedomTown.ico">
+
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: #f3e6ff;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(128, 0, 180, 0.15);
+            padding: 32px 24px 24px 24px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: #6c3483;
+            box-shadow: 0 2px 16px rgba(128,0,180,0.18);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .desc {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        .coin-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+        .coin-card {
+            background: linear-gradient(135deg, #f3e6ff 70%, #e1c6f7 100%);
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(128,0,180,0.10);
+            padding: 20px 28px;
+            min-width: 240px;
+            max-width: 320px;
+            flex: 1 1 240px;
+        }
+        .coin-card:hover {
+            box-shadow: 0 8px 32px #a259e633;
+        }
+        .coin-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #a259e6;
+            margin-bottom: 8px;
+        }
+        .coin-detail {
+            font-size: 1rem;
+            color: #222;
+        }
+        .coin-detail span[style*="color:#00bfff"] {
+            color: #a259e6 !important;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 12px; }
+            .coin-list { 
+                flex-direction: column; 
+                gap: 16px; 
+                align-items: center; 
+            }
+            .coin-card { 
+                padding: 14px 10px; 
+                margin-left: auto; 
+                margin-right: auto; 
+                box-shadow: 0 1px 4px #a259e611;
+            }
+        }
+        .navbar {
+            width: 100%;
+            background: #6c3483;
+            box-shadow: 0 2px 12px rgba(128,0,180,0.08);
+            border-radius: 14px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 12px 0;
+        }
+        .navbar .burger {
+            display: none;
+        }
+        .navbar a {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.08rem;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .navbar a.active, .navbar a:hover {
+            background: #a259e6;
+            color: #fff;
+        }
+        
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                background: transparent;
+                border-radius: 0;
+                box-shadow: none;
+                margin-bottom: 0;
+                padding: 0;
+                min-height: 0;
+                position: static;
+                top: auto;
+                z-index: 1;
+            }
+            .navbar .burger {
+                display: block;
+                position: fixed;
+                right: 14px;
+                bottom: 14px;
+                left: auto;
+                top: auto;
+                margin: 0;
+                align-self: auto;
+                z-index: 2000;
+                background: #a259e6;
+                border: none;
+                color: #fff;
+                font-size: 1.3rem;
+                padding: 7px 12px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(128,0,180,0.13);
+                transition: background 0.18s, box-shadow 0.18s;
+                cursor: pointer;
+                opacity: 0.97;
+            }
+            .navbar .burger:active,
+            .navbar .burger:focus {
+                background: #6c3483;
+                color: #fff;
+                outline: none;
+                box-shadow: 0 2px 8px #a259e699;
+            }
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                width: 100vw;
+                max-width: 100vw;
+                background: #6c3483;
+                border-radius: 0 0 12px 12px;
+                box-shadow: 0 2px 8px rgba(128,0,180,0.08);
+                margin-top: 0;
+                padding-bottom: 8px;
+                position: fixed;
+                left: 0;
+                top: 0;
+                animation: fadeInMenu 0.22s;
+                z-index: 2100;
+            }
+            .navbar-links.show {
+                display: flex;
+            }
+            .navbar a {
+                width: 100vw;
+                max-width: 100vw;
+                text-align: left;
+                padding: 13px 18px;
+                border-radius: 0;
+                font-size: 1.01rem;
+                border-bottom: 1px solid #a259e622;
+                transition: background 0.18s, color 0.18s;
+                background: transparent;
+                color: #fff;
+            }
+            .navbar a.active, .navbar a:hover {
+                background: #a259e6;
+                color: #fff;
+            }
+            .navbar a:last-child {
+                border-bottom: none;
+            }
+
+        }
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <button class="burger" aria-label="เมนูนำทาง">☰</button>
+            <div class="navbar-links">
+                <a href="index.html">เงื่อนไขการเทรดของ</a>
+                <a href="trade-places.html">สถานที่การเทรดของ</a>
+                <a href="coin-details.html" class="active">รายละเอียดเหรียญ</a>
+                <a href="how-to-trade.html">วิธีการเทรดของ</a>
+            </div>
+        </nav>
+        <div class="banner" style="width:100%;margin-bottom:32px;">
+            <img src="img/1.png" alt="Fam 1.0 Banner" style="width:100%;max-height:340px;object-fit:cover;border-radius:18px 18px 0 0;box-shadow:0 2px 16px rgba(128,0,180,0.18);border-bottom:4px solid #a259e6;">
+        </div>
+        <div class="header" style="margin-top:-18px; justify-content:center; text-align:center; margin-bottom:40px;">
+            <div class="header-title" style="font-size:2.5rem; color:#fff; background:#6c3483; box-shadow:0 2px 16px rgba(128,0,180,0.18); border-radius:12px; padding:18px 12px; display:inline-block; letter-spacing:1.5px;">
+                <span style="font-size:2.2rem; vertical-align:middle;">🪙</span>
+                <span style="vertical-align:middle;">รายละเอียดเหรียญ <span style="color:#a259e6; font-weight:900;">FAM 1.0</span></span>
+                <span style="font-size:2.2rem; vertical-align:middle;">🪙</span>
+            </div>
+        </div>
+        <div class="coin-list">
+            <div class="coin-card">
+                <img src="img/auction_car.png" alt="เหรียญรถประมูล" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญรถประมูล</div>
+                <div class="coin-detail">ได้รับจากการแปลงรถที่ได้จากกิจกรรมประมูล ใช้สำหรับแลกรถหรือไอเท็มพิเศษในอนาคต</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/topdonate_car_exclusive.png" alt="เหรียญรถ Top Donate" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญรถ Top Donate 1-4</div>
+                <div class="coin-detail">ได้รับจากรถที่ได้จากการบริจาคระดับสูง ใช้แลกของหรือสิทธิพิเศษในร้านค้าพิเศษ</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/topcar_coin.png" alt="เหรียญรถยอดสะสม" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญรถยอดสะสม</div>
+                <div class="coin-detail">ได้รับจากกิจกรรมสะสมยอด ใช้สำหรับแลกของรางวัลหรือสิทธิพิเศษ</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/partcar_coin.png" alt="เหรียญรถประกอบ" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญรถประกอบ</div>
+                <div class="coin-detail">ได้รับจากรถที่ผู้เล่นประกอบเอง ใช้สำหรับกิจกรรมหรือแลกเปลี่ยนในอนาคต</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/gachacar_coin.png" alt="เหรียญรถกาชา" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญรถกาชา</div>
+                <div class="coin-detail">ได้รับจากรถที่ได้จากระบบสุ่มกาชา ใช้สำหรับแลกเปลี่ยนหรือกิจกรรมพิเศษ</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/topdonate_fashion_exclusive.png" alt="เหรียญแฟชั่น Top Donate" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญแฟชั่น Top Donate 1-4</div>
+                <div class="coin-detail">ได้รับจากแฟชั่นที่ได้จากการบริจาคพิเศษ ใช้สำหรับแลกแฟชั่นหรือสิทธิพิเศษ</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/fashion_coin.png" alt="เหรียญแฟชั่น" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญแฟชั่น</div>
+                <div class="coin-detail">ใช้แลกเปลี่ยนแฟชั่นต่าง ๆ ภายในเกม สามารถสะสมและนำไปแลกแฟชั่นใหม่ในอนาคต</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/topdonate_weaponskin_exclusive.png" alt="เหรียญสกินอาวุธ Top Donate" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญสกินอาวุธ Top Donate 1-4</div>
+                <div class="coin-detail">ได้รับจากสกินอาวุธที่ได้จากการบริจาคพิเศษ ใช้สำหรับแลกเปลี่ยนสกินหรือกิจกรรมในอนาคต</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/weaponskin_coin.png" alt="เหรียญสกินอาวุธ" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญสกินอาวุธ</div>
+                <div class="coin-detail">ได้รับจากสกินอาวุธ ใช้สำหรับแลกเปลี่ยนสกินหรือกิจกรรมในอนาคต</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/fashion_sr_coin.png" alt="เหรียญแฟชั่น SR" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">เหรียญแฟชั่น SR</div>
+                <div class="coin-detail">ได้รับจากแฟชั่นระดับ SR ใช้สำหรับแลกแฟชั่นหรือสิทธิพิเศษ</div>
+            </div>
+            <div class="coin-card">
+                <img src="img/ticket_tard_money.png" alt="Ticket เทรดเงิน" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">Ticket 1M</div>
+                <div class="coin-detail">ได้รับจากการแลกเปลี่ยนไอเทมทั่วไป เป็นเงิน ทุกๆ 1,000,000 สามารถแลก Ticket 1M ได้ 1 ใบ และนำมาใช้ได้ที่เซิฟเวอร์ Fam Unity<br>
+                <span style="color:#a259e6;font-size:0.98em;font-weight:500;">เพิ่มเติม : สามารถนำเงินไปซื้อ Ticket 1M ได้ที่ร้านค้าทั่วไป</span>
+                </div>
+            </div>
+            <div class="coin-card">
+                <img src="img/ticket_tard_moneyy_500k.png" alt="Ticket 500k" style="width:60px;height:60px;display:block;margin:0 auto 10px auto;">
+                <div class="coin-title" style="color:#a259e6;">Ticket 500k</div>
+                <div class="coin-detail">ได้รับจากการแลกเปลี่ยนไอเทมทั่วไปเป็นเงิน ทุกๆ 500,000 สามารถแลก Ticket 500k ได้ 1 ใบ และนำมาใช้ได้ที่เซิฟเวอร์ Fam Unity<br>
+                <span style="color:#a259e6;font-size:0.98em;font-weight:500;">ทริคเล็กน้อย : สามารถนำเงินไปซื้อ Ticket 500k ได้ที่ร้านค้าทั่วไป</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var burger = document.querySelector('.navbar .burger');
+            var links = document.querySelector('.navbar-links');
+            function handleResize() {
+                if(window.innerWidth > 600) {
+                    links.classList.remove('show');
+                } else {
+                    links.classList.remove('show');
+                }
+            }
+            if (burger && links) {
+                burger.addEventListener('click', function () {
+                    links.classList.toggle('show');
+                });
+                window.addEventListener('resize', handleResize);
+                handleResize();
+            }
+        });
+    </script>
+</body>
+</html>

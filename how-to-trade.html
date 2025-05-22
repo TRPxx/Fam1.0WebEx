@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิธีการเทรดของ | Fam 1.0</title>
+    <link rel="icon" type="image/x-icon" href="img/LogoFreedomTown.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: #f3e6ff;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(128, 0, 180, 0.15);
+            padding: 32px 24px 24px 24px;
+        }
+        .navbar {
+            width: 100%;
+            background: #6c3483;
+            box-shadow: 0 2px 12px rgba(128,0,180,0.08);
+            border-radius: 14px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 12px 0;
+        }
+        .navbar .burger { display: none; }
+        .navbar a {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.08rem;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .navbar a.active, .navbar a:hover {
+            background: #a259e6;
+            color: #fff;
+        }
+        .banner {
+            width: 100%;
+            margin-bottom: 32px;
+        }
+        .banner img {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            max-height: 340px;
+            object-fit: cover;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 2px 16px rgba(128,0,180,0.18);
+            border-bottom: 4px solid #a259e6;
+            display: block;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: #6c3483;
+            border-radius: 14px;
+            box-shadow: 0 2px 16px rgba(128,0,180,0.18);
+            padding: 18px 12px;
+            display: inline-block;
+            letter-spacing: 1.5px;
+        }
+        .howto-section {
+            margin-bottom: 32px;
+        }
+        .howto-title {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #a259e6;
+            margin-bottom: 12px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(90deg, #f3e6ff 0%, #e1c6f7 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #a259e622;
+            padding: 10px 18px 8px 18px;
+            display: inline-block;
+            border-left: 8px solid #a259e6;
+            border-bottom: 2px solid #e1c6f7;
+        }
+        .howto-title[style*="color:#d32f2f"] {
+            color: #fff !important;
+            background: linear-gradient(90deg, #6c3483 0%, #e1c6f7 100%);
+            border-left: 8px solid #6c3483;
+            border-bottom: 2px solid #e1c6f7;
+            box-shadow: 0 2px 12px #6c348333;
+        }
+        .howto-step {
+            font-size: 1.08rem;
+            margin-bottom: 12px;
+            background: #f3e6ff;
+            border-radius: 10px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 8px #a259e611;
+        }
+        .howto-img {
+            width: 100%;
+            max-width: 420px;
+            display: block;
+            margin: 16px auto 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #a259e622;
+        }
+        .howto-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+            position: relative;
+        }
+        .slider-btn {
+            background: #fff;
+            color: #a259e6;
+            border: 2px solid #a259e6;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #a259e622;
+            transition: background 0.18s, color 0.18s, border 0.18s;
+            position: relative;
+            z-index: 2;
+        }
+        .slider-btn:active, .slider-btn:focus, .slider-btn:hover {
+            background: #a259e6;
+            color: #fff;
+            border: 2px solid #6c3483;
+            outline: none;
+        }
+        .slider-images {
+            width: 100%;
+            max-width: 420px;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .slider-img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #a259e622;
+            display: none;
+            transition: opacity 0.2s;
+        }
+        .slider-img.active {
+            display: block;
+        }
+        .slider-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #f3e6ff;
+            border: 2px solid #a259e6;
+            transition: background 0.18s, border 0.18s;
+            cursor: pointer;
+        }
+        .slider-dot.active {
+            background: #a259e6;
+            border: 2px solid #6c3483;
+        }
+        .place-gallery-slideshow {
+            width: 100%;
+            max-width: 420px;
+            margin: 18px auto 0 auto;
+            position: relative;
+        }
+        .place-gallery-slideshow .slide {
+            display: none;
+            position: absolute;
+            left: 0; top: 0; width: 100%;
+        }
+        .place-gallery-slideshow .slide.active {
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+        .place-gallery-slideshow img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #a259e622;
+        }
+        .place-gallery-slideshow .nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            color: #a259e6;
+            border: 2px solid #a259e6;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #a259e622;
+            transition: background 0.18s, color 0.18s, border 0.18s;
+            z-index: 2;
+            text-decoration: none;
+        }
+        .place-gallery-slideshow .nav.prev { left: 8px; }
+        .place-gallery-slideshow .nav.next { right: 8px; }
+        .place-gallery-slideshow .nav:active, .place-gallery-slideshow .nav:focus, .place-gallery-slideshow .nav:hover {
+            background: #a259e6;
+            color: #fff;
+            border: 2px solid #6c3483;
+            outline: none;
+        }
+        .place-gallery-slideshow .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .place-gallery-slideshow .pagination a {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #f3e6ff;
+            border: 2px solid #a259e6;
+            display: inline-block;
+            text-indent: -9999px;
+            transition: background 0.18s, border 0.18s;
+        }
+        .place-gallery-slideshow .pagination a.active {
+            background: #a259e6;
+            border: 2px solid #6c3483;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 0 8px 12px 8px; margin: 0; max-width: 100vw; border-radius: 0; box-shadow: none; }
+            .banner { margin-bottom: 16px !important; border-radius: 0 0 14px 14px !important; }
+            .banner img { border-radius: 0 0 14px 14px !important; }
+            .header-title { font-size: 1.08rem !important; padding: 8px 8px !important; border-radius: 12px; background: #6c3483 !important; }
+            .navbar { flex-direction: row; align-items: center; justify-content: flex-start; background: transparent; border-radius: 0; box-shadow: none; margin-bottom: 0; padding: 0; min-height: 0; position: static; top: auto; z-index: 1; }
+            .navbar .burger { display: block; position: fixed; right: 14px; bottom: 14px; left: auto; top: auto; margin: 0; align-self: auto; z-index: 2000; background: #a259e6; border: none; color: #fff; font-size: 1.3rem; padding: 7px 12px; border-radius: 10px; box-shadow: 0 2px 8px rgba(128,0,180,0.13); transition: background 0.18s, box-shadow 0.18s; cursor: pointer; opacity: 0.97; }
+            .navbar .burger:active, .navbar .burger:focus { background: #6c3483; color: #fff; outline: none; box-shadow: 0 2px 8px #a259e699; }
+            .navbar-links { display: none; flex-direction: column; width: 100vw; max-width: 100vw; background: #6c3483; border-radius: 0 0 12px 12px; box-shadow: 0 2px 8px rgba(128,0,180,0.08); margin-top: 0; padding-bottom: 8px; position: fixed; left: 0; top: 0; animation: fadeInMenu 0.22s; z-index: 2100; }
+            .navbar-links.show { display: flex; }
+            .navbar a { width: 100vw; max-width: 100vw; text-align: left; padding: 13px 18px; border-radius: 0; font-size: 1.01rem; border-bottom: 1px solid #a259e622; transition: background 0.18s, color 0.18s; background: transparent; color: #fff; }
+            .navbar a.active, .navbar a:hover { background: #a259e6; color: #fff; }
+            .navbar a:last-child { border-bottom: none; }
+            .howto-img { max-width: 98vw; }
+            .howto-slider { gap: 4px; }
+            .slider-btn { font-size: 1.2rem; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
+            .slider-images, .slider-img { max-width: 98vw; }
+            .slider-pagination { gap: 5px; }
+            .slider-dot { width: 9px; height: 9px; }
+            .place-gallery-slideshow { max-width: 98vw; }
+            .place-gallery-slideshow .nav { font-size: 1.2rem; width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
+            .place-gallery-slideshow .pagination { gap: 5px; }
+            .place-gallery-slideshow .pagination a { width: 9px; height: 9px; }
+            .howto-title { font-size: 1.18rem !important; padding: 7px 10px 6px 10px !important; border-radius: 8px; }
+        }
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <button class="burger" aria-label="เมนูนำทาง">☰</button>
+            <div class="navbar-links">
+                <a href="index.html">เงื่อนไขการเทรดของ</a>
+                <a href="trade-places.html">สถานที่การเทรดของ</a>
+                <a href="coin-details.html">รายละเอียดเหรียญ</a>
+                <a href="how-to-trade.html" class="active">วิธีการเทรดของ</a>
+            </div>
+        </nav>
+        <div class="banner">
+            <img src="img/1.png" alt="Fam 1.0 Banner">
+        </div>
+        <div class="header">
+            <div class="header-title">🛒 วิธีการเทรดของใน <span style="color:#a259e6; font-weight:900;">FAM 1.0</span> 🛒</div>
+        </div>
+        <div class="howto-section">
+            <div class="howto-title" style="color:#007acc;">วิธีการเทรด Skin อาวุธ</div>
+            <div class="howto-step">
+                - ผู้เล่นสามารถใช้คำสั่ง <b style="color:#6c3483;background:#f3e6ff;padding:2px 6px;border-radius:6px;">weaponskin_exchange</b> ในช่อง F8 ได้ทันที<br>
+                - เมื่อใช้คำสั่งนี้ จะได้รับ <b style="color:#a259e6;">เหรียญสกินอาวุธ</b> (Weapon Skin Coin) เข้ากระเป๋าโดยอัตโนมัติ<br>
+            </div>
+        </div>
+        <div class="howto-section">
+            <div class="howto-title">วิธีการ เทรดไอเท็ม ไปยังเชิร์ฟเวอร์ Fam Unity</div>
+            <div class="howto-step">
+                <b>1.</b> ให้ผู้เล่นไปยังสถานที่ ที่ทีมงานจัดเตรียมให้เรียบร้อย ( สามารถดูได้ในหน้า สถานที่เทรดของ )<br>
+                <img src="img/HowToItems_1.png" alt="ขั้นตอนที่ 1" class="howto-img">
+            </div>
+            <div class="howto-step">
+                <b>2.</b> ตรวจสอบไอเท็มภายในกระเป๋า และ ตู้เชฟ ให้เรียบร้อย<br>
+                <img src="img/HowToItems_2.png" alt="ขั้นตอนที่ 2" class="howto-img">
+            </div>
+            <div class="howto-step">
+                <b>3.</b> หลังจากนั้น ให้ผู้เล่นไปยัง จุดขายของ ตามวงต่างๆ จะมี 2 จุด คือ ขายแฟชั่น และ ไอเท็มต่างๆ<br>
+                <div class="place-gallery-slideshow">
+                    <div class="slide active">
+                        <img src="img/HowToItems_3 Fashion.png" alt="ขั้นตอนที่ 3 ขายแฟชั่น">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                    <div class="slide">
+                        <img src="img/HowToItems_3 Items.png" alt="ขั้นตอนที่ 3 ขายไอเท็ม">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                    <div class="pagination">
+                        <a class="active" href="#">1</a>
+                        <a href="#">2</a>
+                    </div>
+                </div>
+            </div>
+            <div class="howto-step">
+                <b>4.</b> สามารถกด E เพื่อเข้าสู่หน้าเมนู หลังจากนั้น กด ขายไอเท็มทั้งหมดได้ทันที<br>
+                <div class="place-gallery-slideshow">
+                    <div class="slide active">
+                        <img src="img/HowToItems_4 Sell Fashion.png" alt="ขั้นตอนที่ 4 ขายแฟชั่น">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                    <div class="slide">
+                        <img src="img/HowToItems_4 Sell Items.png" alt="ขั้นตอนที่ 4 ขายไอเท็ม">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                    <div class="pagination">
+                        <a class="active" href="#">1</a>
+                        <a href="#">2</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="howto-section">
+            <div class="howto-title">วิธีการเทรด ยานพาหนะ ไปยังเชิร์ฟเวอร์ Fam Unity</div>
+            <div class="howto-step">
+                <b>1.</b> ให้ผู้เล่นไปยังสถานที่ ที่ทีมงานจัดเตรียมให้เรียบร้อย ( สามารถดูได้ในหน้า สถานที่เทรดของ )<br>
+                <img src="img/HowToCar_1.png" alt="ขั้นตอนที่ 1 รถ" class="howto-img">
+            </div>
+            <div class="howto-step">
+                <b>2.</b> เบิกรถ ออกจาก จุดเบิกยานพาหนะ<br>
+                <img src="img/HowToCar_2.png" alt="ขั้นตอนที่ 2 รถ" class="howto-img">
+            </div>
+            <div class="howto-step">
+                <b>3.</b> นำรถขับเข้าวง หลังจากนั้น กด E เพื่อขายยานพาหนะ<br>
+                <img src="img/HowToCar_3.png" alt="ขั้นตอนที่ 3 รถ" class="howto-img">
+            </div>
+        </div>
+        <div class="howto-section">
+            <div class="howto-title" style="color:#d32f2f;">ข้อชี้แจงเพิ่มเติม</div>
+            <div class="howto-step">- หากไอเท็มไหน ไม่สามารถย้ายเข้าตู้เชฟได้ หรือ ขายได้ โปรดแจ้งแอดมิน ผ่าน Ticket ประจำเชิร์ฟเวอร์</div>
+            <div class="howto-step">- หากผู้เล่นมีข้อมูลทั้ง 2 เซิฟสามารถขายและนำมารวมกันได้ที่เซิฟเวอร์ใหม่ ยกเว้นอาวุธ ผู้เล่นสามารถเลือกโยกอาวุธมาได้จากเซิฟเวอร์ใด เซิฟเวอร์หนึ่งเท่านั้น</div>
+            <div class="howto-step">- ยานพาหนะที่ขายได้ จำเป็นต้องเป็นเจ้าของยานพาหนะ เท่านั้น</div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var burger = document.querySelector('.navbar .burger');
+            var links = document.querySelector('.navbar-links');
+            function handleResize() {
+                if(window.innerWidth > 600) {
+                    links.classList.remove('show');
+                } else {
+                    links.classList.remove('show');
+                }
+            }
+            if (burger && links) {
+                burger.addEventListener('click', function () {
+                    links.classList.toggle('show');
+                });
+                window.addEventListener('resize', handleResize);
+                handleResize();
+            }
+
+            // Simple anchor-based slider for howto-step 4 images
+            var sliderImgs = document.querySelectorAll('.howto-slider .slider-img');
+            var prevBtn = document.querySelector('.howto-slider .prev');
+            var nextBtn = document.querySelector('.howto-slider .next');
+            var pagination = document.querySelector('.slider-pagination');
+            var currentIdx = 0;
+            function showImg(idx) {
+                sliderImgs.forEach(function(img, i) {
+                    img.classList.toggle('active', i === idx);
+                    img.style.display = i === idx ? 'block' : 'none';
+                });
+                if (pagination) {
+                    var dots = pagination.querySelectorAll('.slider-dot');
+                    dots.forEach(function(dot, i) {
+                        dot.classList.toggle('active', i === idx);
+                    });
+                }
+            }
+            // Create pagination dots
+            if (sliderImgs.length > 0 && pagination) {
+                pagination.innerHTML = '';
+                for (let i = 0; i < sliderImgs.length; i++) {
+                    var dot = document.createElement('span');
+                    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                    dot.addEventListener('click', function() {
+                        currentIdx = i;
+                        showImg(currentIdx);
+                        location.hash = '#slider-img-' + (i+1);
+                    });
+                    pagination.appendChild(dot);
+                }
+            }
+            function getHashIdx() {
+                var hash = location.hash;
+                if(hash.startsWith('#slider-img-')) {
+                    var idx = parseInt(hash.replace('#slider-img-',''),10)-1;
+                    if(!isNaN(idx) && idx >= 0 && idx < sliderImgs.length) return idx;
+                }
+                return 0;
+            }
+            function updateFromHash() {
+                var idx = getHashIdx();
+                currentIdx = idx;
+                showImg(currentIdx);
+            }
+            window.addEventListener('hashchange', updateFromHash);
+            if(sliderImgs.length > 0 && prevBtn && nextBtn) {
+                showImg(currentIdx);
+                prevBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    currentIdx = (currentIdx - 1 + sliderImgs.length) % sliderImgs.length;
+                    showImg(currentIdx);
+                    location.hash = '#slider-img-' + (currentIdx+1);
+                });
+                nextBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    currentIdx = (currentIdx + 1) % sliderImgs.length;
+                    showImg(currentIdx);
+                    location.hash = '#slider-img-' + (currentIdx+1);
+                });
+                updateFromHash();
+            }
+
+            // --- Prevent scroll jump on anchor navigation in .place-gallery-slideshow ---
+            var lastScrollY = window.scrollY;
+            function preventAnchorJump(e) {
+                lastScrollY = window.scrollY;
+            }
+            // Save scroll position before hash changes
+            document.querySelectorAll('.place-gallery-slideshow .nav, .place-gallery-slideshow .pagination a').forEach(function(a) {
+                a.addEventListener('click', preventAnchorJump);
+            });
+            window.addEventListener('hashchange', function() {
+                window.scrollTo({ top: lastScrollY, behavior: 'instant' });
+            });
+
+            // Carousel logic for each .place-gallery-slideshow (แบบ trade-places.html)
+            document.querySelectorAll('.place-gallery-slideshow').forEach(function (slideshow) {
+                const slides = slideshow.querySelectorAll('.slide');
+                const paginations = slideshow.querySelector('.pagination');
+                let current = 0;
+                function showSlide(idx) {
+                    slides.forEach((slide, i) => {
+                        if (i === idx) {
+                            slide.classList.add('active');
+                        } else {
+                            slide.classList.remove('active');
+                        }
+                    });
+                    // Move pagination into the currently visible slide
+                    if (slides[idx] && paginations) slides[idx].appendChild(paginations);
+                    // Update active dot
+                    if (paginations) paginations.querySelectorAll('a').forEach((dot, i) => {
+                        if (i === idx) dot.classList.add('active');
+                        else dot.classList.remove('active');
+                    });
+                    current = idx;
+                }
+                // Init
+                showSlide(0);
+                // Prev/Next
+                slideshow.querySelectorAll('.nav.prev').forEach(btn => {
+                    btn.onclick = function (e) {
+                        e.preventDefault();
+                        showSlide((current - 1 + slides.length) % slides.length);
+                    };
+                });
+                slideshow.querySelectorAll('.nav.next').forEach(btn => {
+                    btn.onclick = function (e) {
+                        e.preventDefault();
+                        showSlide((current + 1) % slides.length);
+                    };
+                });
+                // Pagination
+                if (paginations) paginations.querySelectorAll('a').forEach((dot, i) => {
+                    dot.onclick = function (e) {
+                        e.preventDefault();
+                        showSlide(i);
+                    };
+                });
+            });
+        });
+    </script>
+</body>
+</html>
