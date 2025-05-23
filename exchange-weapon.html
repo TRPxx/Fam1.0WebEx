@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การแลกเปลี่ยนอาวุธ | Fam 1.0</title>
+    <link rel="icon" type="image/x-icon" href="img/LogoFreedomTown.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: #f3e6ff;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(128, 0, 180, 0.15);
+            padding: 32px 24px 24px 24px;
+        }
+        .navbar {
+            width: 100%;
+            background: #6c3483;
+            box-shadow: 0 2px 12px rgba(128,0,180,0.08);
+            border-radius: 14px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 12px 0;
+        }
+        .navbar .burger {
+            display: none;
+        }
+        .navbar a {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.08rem;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .navbar a.active, .navbar a:hover {
+            background: #a259e6;
+            color: #fff;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            overflow-x: auto;
+            white-space: nowrap;
+            max-width: 100vw;
+            padding-bottom: 2px;
+            scrollbar-width: thin;
+            scrollbar-color: #a259e6 #e1c6f7;
+        }
+        .navbar-links::-webkit-scrollbar {
+            height: 7px;
+        }
+        .navbar-links::-webkit-scrollbar-thumb {
+            background: #a259e6;
+            border-radius: 6px;
+        }
+        .navbar-links::-webkit-scrollbar-track {
+            background: #e1c6f7;
+            border-radius: 6px;
+        }
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                background: transparent;
+                border-radius: 0;
+                box-shadow: none;
+                margin-bottom: 0;
+                padding: 0;
+                min-height: 0;
+                position: static;
+                top: auto;
+                z-index: 1;
+            }
+            .navbar .burger {
+                display: block;
+                position: fixed;
+                right: 14px;
+                bottom: 14px;
+                left: auto;
+                top: auto;
+                margin: 0;
+                align-self: auto;
+                z-index: 2000;
+                background: #a259e6;
+                border: none;
+                color: #fff;
+                font-size: 1.3rem;
+                padding: 7px 12px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(128,0,180,0.13);
+                transition: background 0.18s, box-shadow 0.18s;
+                cursor: pointer;
+                opacity: 0.97;
+            }
+            .navbar .burger:active,
+            .navbar .burger:focus {
+                background: #6c3483;
+                color: #fff;
+                outline: none;
+                box-shadow: 0 2px 8px #a259e699;
+            }
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                width: 100vw;
+                max-width: 100vw;
+                background: #6c3483;
+                border-radius: 0 0 12px 12px;
+                box-shadow: 0 2px 8px rgba(128,0,180,0.08);
+                margin-top: 0;
+                padding-bottom: 8px;
+                position: fixed;
+                left: 0;
+                top: 0;
+                animation: fadeInMenu 0.22s;
+                z-index: 2100;
+                overflow-x: visible !important;
+                scrollbar-width: none !important;
+            }
+            .navbar-links::-webkit-scrollbar {
+                display: none !important;
+                height: 0 !important;
+            }
+            .navbar-links.show {
+                display: flex;
+                padding-left: 8px;
+            }
+            .navbar a {
+                width: 100vw;
+                max-width: 100vw;
+                text-align: left;
+                padding: 13px 24px 13px 24px;
+                border-radius: 0;
+                font-size: 1.01rem;
+                border-bottom: 1px solid #a259e622;
+                transition: background 0.18s, color 0.18s;
+                background: transparent;
+                color: #fff;
+            }
+            .navbar a.active, .navbar a:hover {
+                background: #a259e6;
+                color: #fff;
+            }
+            .navbar a:last-child {
+                border-bottom: none;
+            }
+        }
+        @media (min-width: 601px) {
+            .navbar-links {
+                max-width: 100vw;
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: thin;
+                scrollbar-color: #a259e6 #e1c6f7;
+            }
+            .navbar-links::-webkit-scrollbar {
+                height: 8px;
+                background: #e1c6f7;
+                border-radius: 8px;
+            }
+            .navbar-links::-webkit-scrollbar-thumb {
+                background: #a259e6;
+                border-radius: 8px;
+            }
+            .navbar a {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+        }
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes arrowMove {
+            0% { transform: translateX(0); }
+            30% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            100% { transform: translateX(0); }
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: #6c3483;
+            border-radius: 14px;
+            box-shadow: 0 2px 16px rgba(128,0,180,0.18);
+            padding: 18px 12px;
+            display: inline-block;
+            letter-spacing: 1.5px;
+        }
+        .exchange-section {
+            margin-bottom: 32px;
+        }
+        .exchange-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #a259e6;
+            margin-bottom: 16px;
+            letter-spacing: 1.2px;
+            background: linear-gradient(90deg, #f3e6ff 0%, #e1c6f7 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #a259e622;
+            padding: 10px 18px 8px 18px;
+            display: inline-block;
+            border-left: 8px solid #a259e6;
+            border-bottom: 2px solid #e1c6f7;
+        }
+        .exchange-step {
+            font-size: 1.08rem;
+            margin-bottom: 12px;
+            background: #f3e6ff;
+            border-radius: 10px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 8px #a259e611;
+        }
+        .exchange-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0 0 0;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px #a259e611;
+        }
+        .exchange-table th, .exchange-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e1c6f7;
+        }
+        .exchange-table th {
+            background: #a259e6;
+            color: #fff;
+            font-weight: 700;
+        }
+        .exchange-table tr:last-child td {
+            border-bottom: none;
+        }
+        .exchange-table td.arrow {
+            color: #a259e6;
+            font-size: 1.5rem;
+            font-weight: bold;
+            vertical-align: middle;
+            text-align: center;
+            transition: color 0.18s;
+            cursor: pointer;
+        }
+        .exchange-table td.arrow:hover {
+            color: #6c3483;
+            text-shadow: 0 2px 8px #a259e655;
+            animation: arrowMove 0.5s cubic-bezier(.4,1.6,.6,1) 1;
+        }
+        .place-gallery-slideshow {
+            position: relative;
+            max-width: 100%;
+            margin: 18px auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #a259e622;
+        }
+        .place-gallery-slideshow .slide {
+            display: none;
+            position: relative;
+        }
+        .place-gallery-slideshow .slide.active {
+            display: block;
+        }
+        .place-gallery-slideshow img {
+            width: 100%;
+            border-radius: 12px;
+        }
+        .place-gallery-slideshow .nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #fff;
+            text-decoration: none;
+            background: #a259e6;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            min-height: 48px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #a259e655;
+            border: 3px solid #fff;
+            opacity: 0.96;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s, border 0.18s, transform 0.18s;
+            z-index: 2;
+        }
+        .place-gallery-slideshow .nav.prev {
+            left: 14px;
+        }
+        .place-gallery-slideshow .nav.next {
+            right: 14px;
+        }
+        .place-gallery-slideshow .nav:active,
+        .place-gallery-slideshow .nav:focus,
+        .place-gallery-slideshow .nav:hover {
+            background: #6c3483;
+            color: #fff;
+            border: 3px solid #a259e6;
+            box-shadow: 0 4px 16px #a259e655;
+            outline: none;
+            transform: translateY(-50%) scale(1.08);
+        }
+        .place-gallery-slideshow .pagination {
+            text-align: center;
+            margin-top: -50px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .place-gallery-slideshow .pagination a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border: 2px solid #a259e6;
+            border-radius: 50%;
+            margin: 0 2px;
+            cursor: pointer;
+            transition: background 0.18s, border 0.18s, box-shadow 0.18s;
+            box-shadow: 0 1px 4px #a259e611;
+        }
+        .place-gallery-slideshow .pagination a.active {
+            background: #a259e6;
+            border: 2px solid #6c3483;
+            box-shadow: 0 2px 8px #a259e655;
+        }
+        @media (max-width: 600px) {
+            .place-gallery-slideshow .nav {
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+                font-size: 1.3rem;
+                border-width: 2px;
+            }
+            .place-gallery-slideshow .nav.prev { left: 6px; }
+            .place-gallery-slideshow .nav.next { right: 6px; }
+            .container { padding: 0 8px 12px 8px; margin: 0; max-width: 100vw; border-radius: 0; box-shadow: none; }
+            .header-title { font-size: 1.08rem !important; padding: 8px 8px !important; border-radius: 12px; background: #6c3483 !important; }
+            .exchange-title { font-size: 1.18rem !important; padding: 7px 10px 6px 10px !important; border-radius: 8px; }
+            .exchange-step { font-size: 0.98rem; padding: 10px 8px; }
+            .exchange-table th, .exchange-table td { padding: 8px 4px; font-size: 0.95rem; }
+            .place-gallery-slideshow .pagination {
+                gap: 5px;
+            }
+            .place-gallery-slideshow .pagination a {
+                width: 12px;
+                height: 12px;
+                border-width: 1.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <button class="burger" aria-label="เมนูนำทาง">☰</button>
+            <div class="navbar-links">
+                <a href="index.html">เงื่อนไขการเทรดของ</a>
+                <a href="trade-places.html">สถานที่การเทรดของ</a>
+                <a href="coin-details.html">รายละเอียดเหรียญ</a>
+                <a href="how-to-trade.html">วิธีการเทรดของ</a>
+                <a href="exchange-weapon.html" class="active">การแลกเปลี่ยนอาวุธ</a>
+            </div>
+        </nav>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var burger = document.querySelector('.navbar .burger');
+            var links = document.querySelector('.navbar-links');
+            function handleResize() {
+                if(window.innerWidth > 600) {
+                    links.classList.remove('show');
+                } else {
+                    links.classList.remove('show');
+                }
+            }
+            if (burger && links) {
+                burger.addEventListener('click', function () {
+                    links.classList.toggle('show');
+                });
+                window.addEventListener('resize', handleResize);
+                handleResize();
+            }
+
+            // --- Place Gallery Slideshow (trade-places style) ---
+            document.querySelectorAll('.place-gallery-slideshow').forEach(function (slideshow) {
+                const slides = slideshow.querySelectorAll('.slide');
+                const paginations = slideshow.querySelector('.pagination');
+                let current = 0;
+                function showSlide(idx) {
+                    slides.forEach((slide, i) => {
+                        if (i === idx) {
+                            slide.classList.add('active');
+                        } else {
+                            slide.classList.remove('active');
+                        }
+                    });
+                    // Move pagination into the currently visible slide
+                    if (slides[idx] && paginations) slides[idx].appendChild(paginations);
+                    // Update active dot
+                    if (paginations) paginations.querySelectorAll('a').forEach((dot, i) => {
+                        if (i === idx) dot.classList.add('active');
+                        else dot.classList.remove('active');
+                    });
+                    current = idx;
+                }
+                // Init
+                showSlide(0);
+                // Prev/Next
+                slideshow.querySelectorAll('.nav.prev').forEach(btn => {
+                    btn.onclick = function (e) {
+                        e.preventDefault();
+                        showSlide((current - 1 + slides.length) % slides.length);
+                    };
+                });
+                slideshow.querySelectorAll('.nav.next').forEach(btn => {
+                    btn.onclick = function (e) {
+                        e.preventDefault();
+                        showSlide((current + 1) % slides.length);
+                    };
+                });
+                // Pagination
+                if (paginations) paginations.querySelectorAll('a').forEach((dot, i) => {
+                    dot.onclick = function (e) {
+                        e.preventDefault();
+                        showSlide(i);
+                    };
+                });
+            });
+        });
+        </script>
+        <div class="header">
+            <div class="header-title">🔄 การแลกเปลี่ยนอาวุธใน <span style="color:#a259e6; font-weight:900;">FAM 1.0</span> 🔄</div>
+        </div>
+        <div class="exchange-section">
+            <div class="exchange-title">รายละเอียดการแลกเปลี่ยนอาวุธ</div>
+            <div class="exchange-step">
+                - ผู้เล่นสามารถนำอาวุธจากเซิร์ฟเวอร์เดิม (เช่น อาวุธ A) มาแลกเปลี่ยนเป็นอาวุธใหม่ (อาวุธ B) ตามระบบ Tier ที่กำหนดใน Fam Unity<br>
+                - อาวุธแต่ละประเภท สามารถแลกเปลี่ยนได้เพียง 1 ชิ้นต่อประเภทเท่านั้น<br>
+                - การแลกเปลี่ยนจะอ้างอิงตาม Tier และความสมดุลของอาวุธในระบบใหม่<br>
+            </div>
+            <table class="exchange-table">
+                <thead>
+                    <tr>
+                        <th>อาวุธเดิม (Fam 1.0)</th>
+                        <th><span title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</span></th>
+                        <th>อาวุธใหม่ (Fam Unity)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>DAGGER</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>KNIFE IV</td></tr>
+                    <tr><td>FLIP</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>KNIFE III</td></tr>
+                    <tr><td>BOTTLE</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>KNIFE BLUE</td></tr>
+                    <tr><td>POOLCUE +1 +2 +3 +4</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>POOLCUE BLUE</td></tr>
+                    <tr><td>POOLCUE +5</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>POOLCUE II</td></tr>
+                    <tr><td>BAT +1 +2 +3 +4</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>POOLCUE BLUE</td></tr>
+                    <tr><td>BAT +5</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>POOLCUE II</td></tr>
+                    <tr><td>MACHETE +1 +2</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MACHETE BLUE</td></tr>
+                    <tr><td>MACHETE +3</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MACHETE II</td></tr>
+                    <tr><td>MACHETE +4</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MACHETE III</td></tr>
+                    <tr><td>MACHETE +5</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MACHETE IV</td></tr>
+                    <tr><td>KNUCKLE +1 +2</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>KNUCKLE BLUE</td></tr>
+                    <tr><td>KNUCKLE +3</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>KNUCKLE II</td></tr>
+                    <tr><td>KNUCKLE +4</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>KNUCKLE III</td></tr>
+                    <tr><td>KNUCKLE +5</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>KNUCKLE IV</td></tr>
+                    <tr><td>MK1 : เขียว +1 +2</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MK1 : +1</td></tr>
+                    <tr><td>MK1 : +3 +4</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MK1 : +2</td></tr>
+                    <tr><td>MK1 : +5</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MK1 : +3</td></tr>
+                    <tr><td>MK2 : +1 +2 +3 +4 +5</td><td class="arrow" title="แลกเปลี่ยนเป็น" aria-label="แลกเปลี่ยนเป็น">⟶</td><td>MK1 : +4 ยิงยาง</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <div class="exchange-section">
+            <div class="exchange-title">ขั้นตอนการแลกเปลี่ยนอาวุธ</div>
+            <div class="exchange-step">
+                <b>1.</b> ตรวจสอบอาวุธที่ต้องการแลกเปลี่ยนในกระเป๋าให้เรียบร้อย<br>
+                <b>2.</b> ไปยังจุดแลกเปลี่ยนอาวุธที่ทีมงานกำหนด<br>
+                <b>3.</b> แจ้งทีมงานหรือใช้ระบบอัตโนมัติ (ถ้ามี) เพื่อดำเนินการแลกเปลี่ยน<br>
+                <b>4.</b> รับอาวุธใหม่ตาม Tier ที่กำหนดใน Fam Unity<br>
+            </div>
+        </div> -->
+        <div class="exchange-section">
+            <div class="exchange-title">สถานที่แลกอาวุธ</div>
+            <div class="exchange-step">
+                <b>จุดแลกเปลี่ยนอาวุธ</b> จะตั้งอยู่ในพื้นที่ที่ทีมงานกำหนดไว้ ผู้เล่นสามารถเดินทางไปยังจุดดังกล่าวเพื่อดำเนินการแลกเปลี่ยนอาวุธได้ทันที<br>
+                <div class="place-gallery-slideshow">
+                    <div class="slide active">
+                        <img src="img/Weapon1.png" alt="สถานที่แลกอาวุธ 1">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                        <div class="pagination">
+                            <a class="active" href="#" aria-label="สไลด์ 1"></a>
+                            <a href="#" aria-label="สไลด์ 2"></a>
+                            <a href="#" aria-label="สไลด์ 3"></a>
+                            <a href="#" aria-label="สไลด์ 4"></a>
+                            <a href="#" aria-label="สไลด์ 5"></a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="img/Weapon2.png" alt="สถานที่แลกอาวุธ 2">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                    <div class="slide">
+                        <img src="img/Weapon3.png" alt="สถานที่แลกอาวุธ 3">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                    <div class="slide">
+                        <img src="img/Weapon4.png" alt="สถานที่แลกอาวุธ 4">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                    <div class="slide">
+                        <img src="img/Weapon5.png" alt="สถานที่แลกอาวุธ 5">
+                        <a class="nav prev" href="#">&#10094;</a>
+                        <a class="nav next" href="#">&#10095;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

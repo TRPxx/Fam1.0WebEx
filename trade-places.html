@@ -110,6 +110,10 @@
             padding: 12px 0;
         }
 
+        .navbar .burger {
+            display: none;
+        }
+
         .navbar a {
             color: #fff;
             font-weight: 600;
@@ -126,30 +130,35 @@
             color: #fff;
         }
 
-        .navbar .burger {
-            display: none;
+        .navbar-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            overflow-x: auto;
+            white-space: nowrap;
+            max-width: 100vw;
+            padding-bottom: 2px;
+            scrollbar-width: thin;
+            scrollbar-color: #a259e6 #e1c6f7;
+        }
+
+        .navbar-links::-webkit-scrollbar {
+            height: 7px;
+        }
+
+        .navbar-links::-webkit-scrollbar-thumb {
+            background: #a259e6;
+            border-radius: 6px;
+        }
+
+        .navbar-links::-webkit-scrollbar-track {
+            background: #e1c6f7;
+            border-radius: 6px;
         }
 
         @media (max-width: 600px) {
-            .container {
-                padding: 4px;
-                max-width: 100vw;
-            }
-
-            .place-list {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .place-card {
-                min-width: 0;
-                max-width: 100vw;
-                width: 100%;
-                padding: 8px 2px;
-                box-sizing: border-box;
-                box-shadow: 0 1px 4px #a259e611;
-            }
-
             .navbar {
                 flex-direction: row;
                 align-items: center;
@@ -168,8 +177,8 @@
             .navbar .burger {
                 display: block;
                 position: fixed;
-                right: 18px;
-                bottom: 18px;
+                right: 14px;
+                bottom: 14px;
                 left: auto;
                 top: auto;
                 margin: 0;
@@ -178,10 +187,10 @@
                 background: #a259e6;
                 border: none;
                 color: #fff;
-                font-size: 1.5rem;
-                padding: 8px 14px;
-                border-radius: 12px;
-                box-shadow: 0 4px 16px rgba(128, 0, 180, 0.18);
+                font-size: 1.3rem;
+                padding: 7px 12px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(128, 0, 180, 0.13);
                 transition: background 0.18s, box-shadow 0.18s;
                 cursor: pointer;
                 opacity: 0.97;
@@ -201,28 +210,36 @@
                 width: 100vw;
                 max-width: 100vw;
                 background: #6c3483;
-                border-radius: 0 0 14px 14px;
-                box-shadow: 0 2px 12px rgba(128, 0, 180, 0.08);
+                border-radius: 0 0 12px 12px;
+                box-shadow: 0 2px 8px rgba(128, 0, 180, 0.08);
                 margin-top: 0;
                 padding-bottom: 8px;
                 position: fixed;
                 left: 0;
                 top: 0;
-                animation: fadeInMenu 0.25s;
+                animation: fadeInMenu 0.22s;
                 z-index: 2100;
+                overflow-x: visible !important;
+                scrollbar-width: none !important;
+            }
+
+            .navbar-links::-webkit-scrollbar {
+                display: none !important;
+                height: 0 !important;
             }
 
             .navbar-links.show {
                 display: flex;
+                padding-left: 8px;
             }
 
             .navbar a {
                 width: 100vw;
                 max-width: 100vw;
                 text-align: left;
-                padding: 16px 24px;
+                padding: 13px 24px 13px 24px;
                 border-radius: 0;
-                font-size: 1.08rem;
+                font-size: 1.01rem;
                 border-bottom: 1px solid #a259e622;
                 transition: background 0.18s, color 0.18s;
                 background: transparent;
@@ -238,20 +255,31 @@
             .navbar a:last-child {
                 border-bottom: none;
             }
+        }
 
-            .place-gallery-slideshow {
-                max-width: 98vw;
-                min-height: 120px;
+        @media (min-width: 601px) {
+            .navbar-links {
+                max-width: 100vw;
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: thin;
+                scrollbar-color: #a259e6 #e1c6f7;
             }
 
-            .place-gallery-slideshow .slide {
-                height: 120px;
+            .navbar-links::-webkit-scrollbar {
+                height: 8px;
+                background: #e1c6f7;
+                border-radius: 8px;
             }
 
-            .header-title {
-                font-size: 1.3rem;
-                padding: 8px 0 8px 0;
-                background: #6c3483 !important;
+            .navbar-links::-webkit-scrollbar-thumb {
+                background: #a259e6;
+                border-radius: 8px;
+            }
+
+            .navbar a {
+                font-size: 1rem;
+                padding: 8px 16px;
             }
         }
 
@@ -378,6 +406,7 @@
                 <a href="trade-places.html" class="active">สถานที่การเทรดของ</a>
                 <a href="coin-details.html">รายละเอียดเหรียญ</a>
                 <a href="how-to-trade.html">วิธีการเทรดของ</a>
+                <a href="exchange-weapon.html">การแลกเปลี่ยนอาวุธ</a>
             </div>
         </nav>
         <div class="banner" style="width:100%;margin-bottom:32px;">

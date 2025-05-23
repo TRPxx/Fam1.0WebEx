@@ -105,6 +105,30 @@
             background: #a259e6;
             color: #fff;
         }
+        .navbar-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            overflow-x: auto;
+            white-space: nowrap;
+            max-width: 100vw;
+            padding-bottom: 2px;
+            scrollbar-width: thin;
+            scrollbar-color: #a259e6 #e1c6f7;
+        }
+        .navbar-links::-webkit-scrollbar {
+            height: 7px;
+        }
+        .navbar-links::-webkit-scrollbar-thumb {
+            background: #a259e6;
+            border-radius: 6px;
+        }
+        .navbar-links::-webkit-scrollbar-track {
+            background: #e1c6f7;
+            border-radius: 6px;
+        }
         .section-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -241,15 +265,22 @@
                 top: 0;
                 animation: fadeInMenu 0.22s;
                 z-index: 2100;
+                overflow-x: visible !important;
+                scrollbar-width: none !important;
+            }
+            .navbar-links::-webkit-scrollbar {
+                display: none !important;
+                height: 0 !important;
             }
             .navbar-links.show {
                 display: flex;
+                padding-left: 8px;
             }
             .navbar a {
                 width: 100vw;
                 max-width: 100vw;
                 text-align: left;
-                padding: 13px 18px;
+                padding: 13px 24px 13px 24px; /* เพิ่ม padding ซ้าย-ขวา */
                 border-radius: 0;
                 font-size: 1.01rem;
                 border-bottom: 1px solid #a259e622;
@@ -284,6 +315,28 @@
                 line-height: 1.5;
             }
         }
+        @media (min-width: 601px) {
+            .navbar-links {
+                max-width: 100vw;
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: thin;
+                scrollbar-color: #a259e6 #e1c6f7;
+            }
+            .navbar-links::-webkit-scrollbar {
+                height: 8px;
+                background: #e1c6f7;
+                border-radius: 8px;
+            }
+            .navbar-links::-webkit-scrollbar-thumb {
+                background: #a259e6;
+                border-radius: 8px;
+            }
+            .navbar a {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+        }
         @keyframes fadeInMenu {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -291,6 +344,18 @@
     </style>
 </head>
 <body>
+    <div id="popup-notice" style="display:none;position:fixed;z-index:3000;left:0;top:0;width:100vw;height:100vh;background:rgba(44,0,60,0.32);backdrop-filter:blur(1.5px);justify-content:center;align-items:center;">
+        <div style="background:#fff;border-radius:18px;box-shadow:0 4px 32px #a259e655;max-width:92vw;width:380px;padding:32px 22px 22px 22px;text-align:center;position:relative;">
+            <div style="font-size:1.25rem;font-weight:700;color:#6c3483;margin-bottom:12px;">แจ้งเตือน</div>
+            <div style="font-size:1.05rem;color:#333;margin-bottom:22px;">
+                ยินดีต้อนรับสู่เว็บไซต์ Fam 1.0<br>
+                โปรดอ่านเงื่อนไขและรายละเอียดการเทรดของให้ครบถ้วนก่อนดำเนินการ<br>
+                หากมีข้อสงสัยสามารถติดต่อทีมงานได้ตลอดเวลา <br>
+                ผ่านทาง Ticket Server Fam 1.0
+            </div>
+            <button id="close-popup-notice" style="background:#a259e6;color:#fff;font-weight:600;font-size:1.08rem;padding:8px 28px;border:none;border-radius:8px;cursor:pointer;transition:background 0.18s;">ปิด</button>
+        </div>
+    </div>
     <div class="container">
         <nav class="navbar">
             <button class="burger" aria-label="เมนูนำทาง">☰</button>
@@ -299,6 +364,7 @@
                 <a href="trade-places.html">สถานที่การเทรดของ</a>
                 <a href="coin-details.html">รายละเอียดเหรียญ</a>
                 <a href="how-to-trade.html">วิธีการเทรดของ</a>
+                <a href="exchange-weapon.html">การแลกเปลี่ยนอาวุธ</a>
             </div>
         </nav>
         <div class="banner" style="width:100%;margin-bottom:32px;">
@@ -389,6 +455,19 @@
                 });
                 window.addEventListener('resize', handleResize);
                 handleResize();
+            }
+
+            // Popup Notice (show only on first visit per session)
+            var popup = document.getElementById('popup-notice');
+            var closeBtn = document.getElementById('close-popup-notice');
+            if (popup && closeBtn) {
+                if (!sessionStorage.getItem('fam10_popup_shown')) {
+                    popup.style.display = 'flex';
+                    sessionStorage.setItem('fam10_popup_shown', '1');
+                }
+                closeBtn.onclick = function() {
+                    popup.style.display = 'none';
+                };
             }
         });
     </script>
